@@ -1,0 +1,13 @@
+.chart-body {
+    /* border: solid 6px; */
+    display: flex;
+    justify-content: center;
+    background-color: #FFD2DA;
+    height: 95%;
+    padding: 10px;
+}
+
+.options-bar {
+    min-height: 10px;
+    justify-content: right;
+}
