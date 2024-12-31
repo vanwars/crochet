@@ -1,0 +1,20 @@
+.Toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0;
+    background-color: #40827D;
+}
+
+.delete-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.delete-buttons Button{
+    height: 30px;
+    width: 120px;
+    margin: 5px;
+}

@@ -10,9 +10,11 @@
   "author": "Josie Anderson",
   "license": "ISC",
   "dependencies": {
-    "antd": "^5.22.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "antd": "^5.22.7",
+    "konva": "^9.3.18",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-konva": "^19.0.1",
     "vite": "^5.4.11"
   },
   "description": ""

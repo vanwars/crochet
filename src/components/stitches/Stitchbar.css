@@ -1,0 +1,21 @@
+
+.Stitchbar{
+    background-color: #40827D;
+
+}
+
+.stitch-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+
+.stitch-buttons Button{
+    height: 80px;
+    width: 80px;
+    margin: 10px;
+}

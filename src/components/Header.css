@@ -1,0 +1,16 @@
+header{
+    margin: 0;
+    padding: 0;
+    color: #FFE0C0;
+    /* height: vh; */
+    display: flex;
+    justify-content: center;
+    background-color: #D56653;
+    border-bottom: 7px solid #E79B63;
+}
+
+header .h1 {
+    background-color: #D56653;
+    margin: 0;
+    padding: 0;
+}
