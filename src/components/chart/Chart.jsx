@@ -1,14 +1,51 @@
 import React from 'react';
 import './Chart.css';
-import Grid from './Grid.jsx'; // Ensure this import statement is correct
+// import Grid from './Grid.jsx'; // Ensure this import statement is correct
 
 
-const Chart = ({ startingStitches }) => {
-    return (
-      <div className="chart-body">
-        <Grid startingStitches={startingStitches} />
+const Chart = ({ rounds, stitches, onReset }) => {
+  return (
+    <div style={{ marginTop: '20px', textAlign: 'center' }}>
+      <h2>Chart go here</h2>
+      {rounds.map((round, index) => {
+        const selectedStitch = stitches.find((stitch) => stitch.id === round.stitchId);
+        return (
+          <div
+            key={index}
+            style={{
+              margin: '10px',
+              padding: '10px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              textAlign: 'center',
+              display: 'inline-block',
+              width: '150px',
+            }}
+          >
+            <h4>Round {index + 1}</h4>
+            <p>Stitch Count: {round.stitchCount}</p>
+            {selectedStitch ? (
+              <>
+                <img
+                  src={selectedStitch.image}
+                  alt={selectedStitch.name}
+                  style={{ width: '50px', height: '50px' }}
+                />
+                <p>{selectedStitch.name}</p>
+              </>
+            ) : (
+              <p>No Stitch Selected</p>
+            )}
+          </div>
+        );
+      })}
+      <div style={{ marginTop: '20px' }}>
+        <button onClick={onReset}>
+          Clear all
+        </button>
       </div>
-    );
-  };
-  
+    </div>
+  );
+};
+
 export default Chart;

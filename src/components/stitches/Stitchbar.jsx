@@ -1,29 +1,26 @@
 import React from 'react';
-import Button from '../Button';
 import './Stitchbar.css';
 
-const Stitchbar = () => {
+const Stitchbar = ({ stitches, onStitchSelect }) => {
   return (
-      <div className="stitch-buttons"> {}
-        <Button onClick={() => console.log('chain stitch button clicked')}>
-          ch
-         </Button>
-        <Button onClick={() => console.log('single crochet button clicked')}>
-          sc
-         </Button>
-        <Button onClick={() => console.log('half-double crochet button clicked')}>
-          hdc
-         </Button>
-        <Button onClick={() => console.log('double crochet button clicked')}>
-          dc
-         </Button>
-        <Button onClick={() => console.log('picot button clicked')}>
-          pic
-         </Button>
-        <Button onClick={() => console.log('slip stitch button clicked')}>
-          slst
-         </Button>
+      <div className="stitch-buttons">
+        {stitches.map((stitch) => (
+          <button
+            key={stitch.id}
+            onClick={() => onStitchSelect(stitch)}
+            style={{
+              margin: '5px',
+              padding: '10px',
+              border: '1px solid #ccc',
+              backgroundColor: '#f0f0f0',
+              cursor: 'pointer',
+            }}
+          >
+            {stitch.name} ({stitch.image})
+          </button>
+        ))}
       </div>
   );
 };
+
 export default Stitchbar;
