@@ -4,22 +4,33 @@ import Stitchbar from './components/stitches/Stitchbar.jsx';
 import Round from './components/chart/Round.jsx';
 import Chart from './components/chart/Chart.jsx';
 import Toolbar from './components/toolbar/Toolbar.jsx';
+import Stitch from './components/stitches/Stitch.jsx';
 import { COLORS } from "./colors.jsx";
-
 import './App.css';
+
+// Import images
+import chImage from './images/ch.jpg';
+import slstImage from './images/slst.jpg';
+import scImage from './images/sc.jpg';
+import hdcImage from './images/hdc.jpg';
+import dcImage from './images/dc.jpg';
+import trImage from './images/tr.jpg';
 
 export default function App() {
     const initialStitches = [
-        { id: 'ch', name: 'Chain', type: 'basic', image: "o", h: 1, w: 1 },
-        { id: 'sc', name: 'Single Crochet', type: 'basic', image: "+", h: 1, w: 1 },
-        { id: 'hdc', name: 'Half Double Crochet', type: 'basic', image: "T", h: 2, w: 1 },
-        { id: 'dc', name: 'Double Crochet', type: 'basic', image: 'dc', h: 3, w: 1 },
+        { id: 'ch', name: 'Chain', image: chImage, h: 1, w: 1 },
+        { id: 'slst', name: 'Slip Stitch', image: slstImage, h: 0, w: 1 },
+        { id: 'sc', name: 'Single Crochet', image: scImage, h: 1, w: 1 },
+        { id: 'hdc', name: 'Half Double Crochet', image: hdcImage, h: 2, w: 1 },
+        { id: 'dc', name: 'Double Crochet', image: dcImage, h: 3, w: 1 },
+        { id: 'tr', name: 'Treble Crochet', image: trImage, h: 4, w: 1 },
     ];
 
     const [submitted, setSubmitted] = useState(false);
     const [rounds, setRounds] = useState([]);
     const [pendingRound, setPendingRound] = useState(null); // Pending round being worked on
     const [inputValue, setInputValue] = useState('');
+    const [selectedStitch, setSelectedStitch] = useState(null);
 
     const startingSts = (event) => {
         event.preventDefault();
@@ -90,18 +101,19 @@ export default function App() {
                         stitches={initialStitches}
                         onStitchSelect={handleSetStitch}
                         onAddRound={handleAddRound} // Pass handleAddRound to Stitchbar
+                        onSelect={setSelectedStitch}
                     />
                 </div>
-
-                <div className="controls" style={{ marginBottom: '20px' }}>
-                    <button onClick={handleGenerateRound}>
-                        Generate
-                     </button>
-                    <button onClick={handleReset} >
-                        Reset
-                     </button>
-                </div>
-
+                {selectedStitch && (
+                    <div className="Stitch">
+                        <Stitch
+                            stitchHeight={`${selectedStitch.h * 10}px`}
+                            stitchWidth={`${selectedStitch.w * 10}px`}
+                            image={selectedStitch.image}
+                            name={selectedStitch.name}
+                        />
+                    </div>
+                )}
                 {!submitted ? (
                     <div className="getStartingSts">
                         <form onSubmit={startingSts}>
@@ -154,7 +166,7 @@ export default function App() {
                         </div>
                     </>
                 )}
-            </main> //end of main (obv)
+            </main> 
         </> //end of div under return
     ); //end of return
 
