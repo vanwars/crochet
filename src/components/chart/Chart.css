@@ -20,3 +20,17 @@
     display: block;
 }
 
+.chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.round {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+  text-align: center;
+}
+
