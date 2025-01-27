@@ -1,2 +1,7 @@
 node_modules
 .DS_Store
+.flaskenv
+package-lock.json
+env/lib
+env/lib64
+
