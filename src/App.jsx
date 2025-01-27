@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Header from './components/Header.jsx';
-import Stitchbar from './components/stitches/Stitchbar.jsx';
-import Chart from './components/chart/Chart.jsx';
-import Toolbar from './components/toolbar/Toolbar.jsx';
-import Stitch from './components/stitches/Stitch.jsx';
+import Stitchbar from './components/Stitchbar.jsx';
+import Chart from './components/Chart.jsx';
+import Toolbar from './components/Toolbar.jsx';
+import Round from "./components/Round.jsx";
+import Stitch from './components/Stitch.jsx';
 import { COLORS } from "./colors.jsx";
 import './App.css';
 
@@ -28,12 +29,13 @@ export default function App() {
 
     const [submitted, setSubmitted] = useState(false);
     const [rounds, setRounds] = useState([]);
-    const [pendingRound, setPendingRound] = useState(null); // Pending round being worked on
     const [inputValue, setInputValue] = useState('');
     const [selectedStitch, setSelectedStitch] = useState(null);
+    const [startingSts, setStartingSts] = useState(0);
 
-    const startingSts = (event) => {
+    const handleStartingSts = (event) => {
         event.preventDefault();
+        setStartingSts(inputValue);
         setSubmitted(true);
      };
 
@@ -41,42 +43,6 @@ export default function App() {
         return inputValue + (inputValue * roundIndex);
     };
 
-    const handleSetStitch = (stitch) => {
-
-        setPendingRound((prevRound) => ({
-            ...prevRound,
-            stitchId: stitch.id,
-        }));
-    };
-
-    const handleGenerateRound = (stitch) => {
-
-        if (!pendingRound) {
-            // Add a new round if there isn't a pending round
-            const newRound = {
-                stitchCount: calculateStitchCount(rounds.length),
-                stitchId: stitch ? stitch.id : null,
-            };
-            setPendingRound(newRound);
-            if (!stitch) {
-                alert('New round added. Please select a stitch and click Generate again.');
-            }
-            return;
-        }
-
-        if (!pendingRound.stitchId) {
-            alert('Select a stitch before generating the round!');
-            return;
-        }
-
-        setRounds((prevRounds) => [...prevRounds, pendingRound]); // Add pending round to main rounds
-        setPendingRound(null); // Clear the pending round
-    };
-
-    const handleReset = () => {
-        setRounds([]);
-        setPendingRound(null);
-    };
 
     return (
         <>
@@ -88,25 +54,13 @@ export default function App() {
                     <Stitchbar
                         stitches={initialStitches}
                         onSelect={setSelectedStitch}
-                        onGenerateRound={handleGenerateRound}
-                        onReset={handleReset}
                     />
-                </div>
 
-                {selectedStitch && (
-                    <div className="Stitch">
-                        <Stitch
-                            stitchHeight={`${selectedStitch.h * 10}px`}
-                            stitchWidth={`${selectedStitch.w * 10}px`}
-                            image={selectedStitch.image}
-                            name={selectedStitch.name}
-                        />
-                    </div>
-                )}
+                </div>
 
                 {!submitted ? (
                     <div className="getStartingSts">
-                        <form onSubmit={startingSts}>
+                        <form onSubmit={handleStartingSts}>
                             <label>
                                 Please choose the number of starting stitches:
                              </label>
@@ -123,19 +77,8 @@ export default function App() {
                     </div>
                 ) : (
                     <>
-                        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-                            {rounds.map((round, index) => (
-                                <Round
-                                    key={index}
-                                    round={round}
-                                    roundIndex={index}
-                                    stitches={initialStitches}
-                                />
-                            ))}
-                        </div>
-
                         <div className="Chart">
-                            <Chart rounds={rounds} stitches={initialStitches} />
+                            <Chart stitches={startingSts} />
                         </div>
 
                         <div className="Toolbar">

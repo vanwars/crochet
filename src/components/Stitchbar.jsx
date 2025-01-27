@@ -1,19 +1,23 @@
 import React from 'react';
-import Button from '../Button';
-import './Stitchbar.css';
+import Button from './Button.jsx';
+import '../css/Stitchbar.css';
 
-const Stitchbar = ({ stitches, onSelect, onGenerateRound, onReset }) => {
+const Stitchbar = ({ stitches, onSelect, onGenerateRound }) => {
+
   const handleSelect = (stitch) => {
     onSelect(stitch);
-    onGenerateRound(stitch);
   };
 
   return (
     <>
       <div className="creation-buttons">
         <Button onClick={() => onGenerateRound(null)}>Generate Round</Button>
-        <Button onClick={onReset}>Reset</Button>
+        <Button onClick={() => console.log('undo button clicked')}>Undo</Button>
+        <Button onClick={() => console.log('redo button clicked')}>Redo </Button>
+        <Button onClick={() => console.log('clear all button clicked')}>Clear</Button>
       </div>  
+
+      {/* put a thing here to display selected stitches, add to the handleSelect */}
 
       <div className="stitch-buttons">
         {stitches.map(stitch => (

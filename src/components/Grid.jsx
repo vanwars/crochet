@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { COLORS } from "../../colors.jsx";
+import { COLORS } from "../colors.jsx";
 
 const canvasheight = 500;
 const canvaswidth = 500;
