@@ -1,51 +1,50 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 header {
-    margin: 0;    
-    height: 9vh;
+  margin: 0;
+  height: 9vh;
 }
 
 main {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: 1fr; 
-    height: 90vh;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr;
+  height: 90vh;
 }
 
 .Stitchbar {
-    grid-area: 1 / 1 / 2 / 2; 
+  grid-area: 1 / 1 / 2 / 2;
 }
 
 .Chart {
-    grid-area: 1 / 2 / 2 / 6;
+  grid-area: 1 / 2 / 2 / 6;
 }
 
 .Toolbar {
-    grid-area: 1 / 6 / 2 / 7;
+  grid-area: 1 / 6 / 2 / 7;
 }
 
 .getStartingSts {
-    display: flex;
-    height: auto; 
-    width: auto; 
-    padding: 20px;
-  }
-
+  display: flex;
+  height: auto;
+  width: auto;
+  padding: 20px;
+}
 
 .input-group {
-    display: flex;
-    flex-flow: wrap;
+  display: flex;
+  flex-flow: wrap;
 }
 
 .input-group input {
-    flex: 1;
-    max-width: 100px; 
+  flex: 1;
+  max-width: 100px;
 }
 
 .input-group button {
-    margin-left: 10px; 
+  margin-left: 10px;
 }

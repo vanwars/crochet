@@ -1,12 +1,8 @@
-import React from 'react';
-import Button from './Button.jsx';
-import '../css/Toolbar.css';
+import React from "react";
+import Button from "./Button.jsx";
+import "../css/Toolbar.css";
 
 const Toolbar = () => {
-  return (
-    <div className="toolbar">
-
-    </div>
-  );
+  return <div className="toolbar"></div>;
 };
 export default Toolbar;

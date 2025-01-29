@@ -1,15 +1,14 @@
-import React from 'react';
-import Round from './Round.jsx';
-import '../css/Chart.css';
+import React from "react";
+import Round from "./Round.jsx";
+import "../css/Chart.css";
 
-const Chart = ({ newRound}) => {
+const Chart = ({ newRound }) => {
   const [allRounds, setAllRounds] = useState([newRound]);
- 
+
   useEffect(() => {
-    if(newRound){
+    if (newRound) {
       setAllRounds([...allRounds, newRound]);
     }
-   
   }, [newRound]);
 
   return (
