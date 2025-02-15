@@ -1,23 +1,30 @@
-import React from "react";
-import Round from "./Round.jsx";
+import React, { useEffect, useState } from "react";
 import "../css/Chart.css";
 
-const Chart = ({ newRound }) => {
-  const [allRounds, setAllRounds] = useState([newRound]);
+const Chart = ({ stitches, updateChart }) => {
+  const [rounds, setRounds] = useState([]);
 
   useEffect(() => {
-    if (newRound) {
-      setAllRounds([...allRounds, newRound]);
+    fetchChartData();
+  }, [updateChart]); // Fetch data whenever updateChart changes
+
+  const fetchChartData = async () => {
+    console.log("fetchChartData called");
+    try {
+      const response = await fetch("http://127.0.0.1:5000/get-chart-data");
+      const data = await response.json();
+      console.log("chart fetched", data);
+      setRounds(data);
+    } catch (error) {
+      console.error("Error fetching chart data:", error);
     }
-  }, [newRound]);
+  };
 
   return (
     <div className="chart">
-      <ul>
-        {rounds.map((round, index) => (
-          <Round key={index} round={round} stitches={stitches} />
-        ))}
-      </ul>
+      {rounds.map((round, index) => (
+        <p key={index}>{JSON.stringify(round)}</p>
+      ))}
     </div>
   );
 };

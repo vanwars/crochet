@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./components/Header.jsx";
 import Stitchbar from "./components/Stitchbar.jsx";
 import Chart from "./components/Chart.jsx";
 import Toolbar from "./components/Toolbar.jsx";
-import Round from "./components/Round.jsx";
 import Stitch from "./components/Stitch.jsx";
 import { COLORS } from "./colors.jsx";
 import "./App.css";
@@ -15,8 +14,6 @@ import scImage from "./images/sc.jpg";
 import hdcImage from "./images/hdc.jpg";
 import dcImage from "./images/dc.jpg";
 import trImage from "./images/tr.jpg";
-import { Grid, Input } from "antd";
-import { Grayscale } from "konva/lib/filters/Grayscale.js";
 
 export default function App() {
   const initialStitches = [
@@ -30,9 +27,11 @@ export default function App() {
 
   const [submitted, setSubmitted] = useState(false);
   const [rounds, setRounds] = useState([]);
+  const [pendingRound, setPendingRound] = useState(null); // Pending round being worked on
   const [inputValue, setInputValue] = useState("");
   const [selectedStitch, setSelectedStitch] = useState(null);
   const [startingSts, setStartingSts] = useState(0);
+  const [updateChart, setUpdateChart] = useState(false); // State to trigger chart update
 
   const handleStartingSts = (event) => {
     event.preventDefault();
@@ -40,8 +39,9 @@ export default function App() {
     setSubmitted(true);
   };
 
-  const calculateStitchCount = (roundIndex) => {
-    return inputValue + inputValue * roundIndex;
+  const handleGenerateRound = () => {
+    console.log("handleGenerateRound in App.jsx called");
+    setUpdateChart((prev) => !prev); // Toggle the state to trigger chart update
   };
 
   return (
@@ -51,7 +51,7 @@ export default function App() {
       </header>
       <main style={{ background: COLORS.light }}>
         <div className="Stitchbar">
-          <Stitchbar stitches={initialStitches} onSelect={setSelectedStitch} />
+          <Stitchbar stitches={initialStitches} onSelect={setSelectedStitch} onGenerateRound={handleGenerateRound} />
         </div>
 
         {!submitted ? (
@@ -59,12 +59,7 @@ export default function App() {
             <form onSubmit={handleStartingSts}>
               <label>Please choose the number of starting stitches:</label>
               <div className="input-group">
-                <input
-                  type="number"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  required
-                />
+                <input type="number" value={inputValue} onChange={(e) => setInputValue(e.target.value)} required />
                 <button type="submit">Save</button>
               </div>
             </form>
@@ -72,8 +67,7 @@ export default function App() {
         ) : (
           <>
             <div className="Chart">
-              {/* <Chart stitches={startingSts} /> commented out so I can work on stitchbar */}
-              <Grid stitches={startingSts} />
+              <Chart stitches={initialStitches} updateChart={updateChart} />
             </div>
 
             <div className="Toolbar">
