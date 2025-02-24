@@ -1,6 +1,6 @@
 import React from "react";
 
-const Stitch = ({ stitchHeight, stitchWidth, image, name }) => {
+const Stitch = ({ id, stitchHeight, stitchWidth, image, name }) => {
   return (
     <div className="stitch">
       <img src={image} alt={name} style={{ height: "50px", width: "50px" }} />

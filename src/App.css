@@ -21,12 +21,12 @@ main {
 }
 
 .Chart {
-  grid-area: 1 / 2 / 2 / 6;
+  grid-area: 1 / 2 / 2 / 7;
 }
 
-.Toolbar {
+/* .Toolbar {
   grid-area: 1 / 6 / 2 / 7;
-}
+} */
 
 .getStartingSts {
   display: flex;

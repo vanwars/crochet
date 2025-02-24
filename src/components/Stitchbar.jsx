@@ -29,6 +29,28 @@ const Stitchbar = ({ stitches, onSelect, onGenerateRound }) => {
     }
   };
 
+  const handleClearAll = async () => {
+    var clearConfirm = confirm("Are you sure that you want to clear all? This action cannot be undone");
+    if (clearConfirm) {
+      console.log("confirmed clearing...");
+      try {
+        const response = await fetch("http://127.0.0.1:5000/clear-chart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(null),
+        });
+
+        const result = await response.json();
+        console.log("Submitted:", result);
+        onGenerateRound(); // Trigger the update in App.jsx
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+  };
+
   const handleSelect = (stitch) => {
     onSelect(stitch);
     setSelectedStitches((prevSelectedStitches) => {
@@ -57,6 +79,7 @@ const Stitchbar = ({ stitches, onSelect, onGenerateRound }) => {
   return (
     <>
       <div className="creation-buttons">
+        <Button onClick={handleClearAll}>Clear all</Button>
         <Button onClick={() => console.log("undo button clicked")}>Undo</Button>
         <Button onClick={() => console.log("redo button clicked")}>Redo</Button>
         <Button onClick={handleClearSelection}>Clear selection</Button>

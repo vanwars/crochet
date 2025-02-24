@@ -35,13 +35,17 @@ export default function App() {
 
   const handleStartingSts = (event) => {
     event.preventDefault();
-    setStartingSts(inputValue);
+    const numChains = parseInt(inputValue, 10);
+    const chainStitches = Array(numChains).fill({ id: "ch", name: "Chain", image: chImage, h: 1, w: 1 });
+    setRounds([{ stitches: chainStitches }]);
+    setStartingSts(numChains);
     setSubmitted(true);
+    setUpdateChart((prev) => !prev); // Trigger chart update
   };
 
   const handleGenerateRound = () => {
     console.log("handleGenerateRound in App.jsx called");
-    setUpdateChart((prev) => !prev); // Toggle the state to trigger chart update
+    setUpdateChart((prev) => !prev); // Trigger chart update
   };
 
   return (
@@ -67,7 +71,7 @@ export default function App() {
         ) : (
           <>
             <div className="Chart">
-              <Chart stitches={initialStitches} updateChart={updateChart} />
+              <Chart stitches={initialStitches} updateChart={updateChart} rounds={rounds} />
             </div>
 
             <div className="Toolbar">

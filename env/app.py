@@ -7,16 +7,16 @@ CORS(app)
 
 # Initialize chart_data as a list
 chart_data = []
+# and rounds, so that we can count indices more easily
+chart_indices = 0; 
 
 def add_chart_data(data):
+    global chart_indices
     print("Adding data...")
     print(data, "\n\n")  # Print the data being added
     chart_data.append(data)
     print("Current chart_data:", chart_data, "\n")
-
-def remove_round(round_index):
-    if 0 <= round_index < len(chart_data):
-        del chart_data[round_index]
+    # chart_indices += 1
 
 @app.route('/submit-sequence', methods=['POST'])
 def submit_sequence():
@@ -27,8 +27,15 @@ def submit_sequence():
 
 @app.route('/get-chart-data', methods=['GET'])
 def get_chart_data():
-    # Extract only the image fields from each item in chart_data
     return jsonify(chart_data)
+
+@app.route("/clear-chart", methods=["POST"])
+def clear_chart():
+    chart_data.clear()
+    chart_rounds = 0;
+    return jsonify(chart_data)
+
+# implement undo and redo
 
 @app.route('/hello-world', methods=["GET"])
 def hello_world():
