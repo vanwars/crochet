@@ -2,32 +2,9 @@ import React, { useState } from "react";
 import Button from "./Button.jsx";
 import "../css/Stitchbar.css";
 
-const Stitchbar = ({ stitches, onSelect, onGenerateRound, handleSubmit }) => {
+const Stitchbar = ({ stitches, onSelect, onGenerateRound, handleSubmit, generateRandomKey }) => {
   const [selectedStitches, setSelectedStitches] = useState([]);
   const [gettingSequence, setGettingSequence] = useState(false);
-
-  // const handleSubmit = async () => {
-  //   if (selectedStitches.length === 0) {
-  //     alert("Please select at least one stitch");
-  //     return;
-  //   }
-  //   console.log("Submitting:", selectedStitches);
-  //   try {
-  //     const response = await fetch("http://127.0.0.1:5000/submit-sequence", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ stitches: selectedStitches }),
-  //     });
-
-  //     const result = await response.json();
-  //     console.log("Submitted:", result);
-  //     onGenerateRound(); // Trigger the update in App.jsx
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
 
   const handleClearAll = async () => {
     var clearConfirm = confirm("Are you sure that you want to clear all? This action cannot be undone");
@@ -91,7 +68,7 @@ const Stitchbar = ({ stitches, onSelect, onGenerateRound, handleSubmit }) => {
             <tbody>
               <tr>
                 {selectedStitches.map((stitch) => (
-                  <td key={stitch.id}>
+                  <td key={generateRandomKey()}>
                     <img src={stitch.image} alt={stitch.name} style={{ height: "50px", width: "50px" }} />
                   </td>
                 ))}
@@ -107,7 +84,7 @@ const Stitchbar = ({ stitches, onSelect, onGenerateRound, handleSubmit }) => {
       </div>
       <div className="stitch-buttons">
         {stitches.map((stitch) => (
-          <Button key={stitch.id} onClick={() => handleSelect(stitch)}>
+          <Button key={generateRandomKey()} onClick={() => handleSelect(stitch)}>
             <img src={stitch.image} alt={stitch.name} style={{ height: "50px", width: "50px" }} />
           </Button>
         ))}

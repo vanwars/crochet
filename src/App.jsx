@@ -44,6 +44,10 @@ export default function App() {
     setUpdateChart((prev) => !prev); // Trigger chart update
   };
 
+  const generateRandomKey = () => {
+    return Math.random().toString(36).substring(2, 12);
+  };
+
   const handleGenerateRound = () => {
     console.log("handleGenerateRound in App.jsx called");
     setUpdateChart((prev) => !prev); // Trigger chart update
@@ -84,6 +88,7 @@ export default function App() {
             onSelect={setSelectedStitch}
             onGenerateRound={handleGenerateRound}
             handleSubmit={handleSubmit}
+            generateRandomKey={generateRandomKey}
           />
         </div>
 
@@ -100,7 +105,13 @@ export default function App() {
         ) : (
           <>
             <div className="Chart">
-              <Chart stitches={initialStitches} updateChart={updateChart} rounds={rounds} setRounds={setRounds} />
+              <Chart
+                stitches={initialStitches}
+                updateChart={updateChart}
+                rounds={rounds}
+                setRounds={setRounds}
+                generateRandomKey={generateRandomKey}
+              />
             </div>
 
             <div className="Toolbar">

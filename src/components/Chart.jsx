@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../css/Chart.css";
 import Stitch from "./Stitch";
 
-const Chart = ({ stitches, updateChart, rounds, setRounds }) => {
+const Chart = ({ stitches, updateChart, rounds, setRounds, generateRandomKey }) => {
   useEffect(() => {
     fetchChartData();
   }, [updateChart]); // Fetch data whenever updateChart changes
@@ -33,7 +33,7 @@ const Chart = ({ stitches, updateChart, rounds, setRounds }) => {
       console.log(stitch);
       // top += 35;
       left += 55;
-      return <img src={stitch.image} style={inline_styles} alt={stitch.name} />;
+      return <img key={generateRandomKey()} src={stitch.image} style={inline_styles} alt={stitch.name} />;
     });
   };
 
@@ -50,7 +50,7 @@ const Chart = ({ stitches, updateChart, rounds, setRounds }) => {
       };
       left += 55;
       return (
-        <div key={stitch.id} style={inline_styles}>
+        <div key={generateRandomKey()} style={inline_styles}>
           {stitch.id}
         </div>
       );
@@ -60,10 +60,10 @@ const Chart = ({ stitches, updateChart, rounds, setRounds }) => {
   return (
     <div className="chart">
       {rounds.map((round, idx) => {
-        return <div>{outputStitches(round.stitches, idx * 80)}</div>;
+        return <div key={generateRandomKey()}>{outputStitches(round.stitches, idx * 80)}</div>;
       })}
       {rounds.map((round, idx) => {
-        return <div>{outputText(round.stitches, idx * 80)}</div>;
+        return <div key={generateRandomKey()}>{outputText(round.stitches, idx * 80)}</div>;
       })}
     </div>
   );
