@@ -33,11 +33,12 @@ export default function App() {
   const [startingSts, setStartingSts] = useState(0);
   const [updateChart, setUpdateChart] = useState(false); // State to trigger chart update
 
-  const handleStartingSts = (event) => {
+  const handleStartingSts = async (event) => {
     event.preventDefault();
     const numChains = parseInt(inputValue, 10);
     const chainStitches = Array(numChains).fill({ id: "ch", name: "Chain", image: chImage, h: 1, w: 1 });
     setRounds([{ stitches: chainStitches }]);
+    await handleSubmit(chainStitches);
     setStartingSts(numChains);
     setSubmitted(true);
     setUpdateChart((prev) => !prev); // Trigger chart update
@@ -48,6 +49,29 @@ export default function App() {
     setUpdateChart((prev) => !prev); // Trigger chart update
   };
 
+  const handleSubmit = async (selectedStitches) => {
+    if (selectedStitches.length === 0) {
+      alert("Please select at least one stitch");
+      return;
+    }
+    console.log("Submitting:", selectedStitches);
+    try {
+      const response = await fetch("http://127.0.0.1:5000/submit-sequence", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ stitches: selectedStitches }),
+      });
+
+      const result = await response.json();
+      console.log("Submitted:", result);
+      handleGenerateRound(); // Trigger the update in App.jsx
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
       <header>
@@ -55,7 +79,12 @@ export default function App() {
       </header>
       <main style={{ background: COLORS.light }}>
         <div className="Stitchbar">
-          <Stitchbar stitches={initialStitches} onSelect={setSelectedStitch} onGenerateRound={handleGenerateRound} />
+          <Stitchbar
+            stitches={initialStitches}
+            onSelect={setSelectedStitch}
+            onGenerateRound={handleGenerateRound}
+            handleSubmit={handleSubmit}
+          />
         </div>
 
         {!submitted ? (
@@ -71,7 +100,7 @@ export default function App() {
         ) : (
           <>
             <div className="Chart">
-              <Chart stitches={initialStitches} updateChart={updateChart} rounds={rounds} />
+              <Chart stitches={initialStitches} updateChart={updateChart} rounds={rounds} setRounds={setRounds} />
             </div>
 
             <div className="Toolbar">

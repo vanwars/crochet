@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../css/Chart.css";
 import Stitch from "./Stitch";
 
-const Chart = ({ stitches, updateChart, rounds }) => {
+const Chart = ({ stitches, updateChart, rounds, setRounds }) => {
   useEffect(() => {
     fetchChartData();
   }, [updateChart]); // Fetch data whenever updateChart changes
