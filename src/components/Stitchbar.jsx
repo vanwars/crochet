@@ -29,10 +29,12 @@ const Stitchbar = ({ stitches, onSelect, onGenerateRound, handleSubmit, generate
   };
 
   const handleSelect = (stitch) => {
-    onSelect(stitch);
-    setSelectedStitches((prevSelectedStitches) => {
-      return [...prevSelectedStitches, stitch];
-    });
+    if (gettingSequence) {
+      onSelect(stitch);
+      setSelectedStitches((prevSelectedStitches) => {
+        return [...prevSelectedStitches, stitch];
+      });
+    }
   };
 
   const handleNewRound = () => {
@@ -42,7 +44,13 @@ const Stitchbar = ({ stitches, onSelect, onGenerateRound, handleSubmit, generate
 
   const handleGenerateRound = () => {
     console.log("generate round button clicked");
-    handleSubmit(selectedStitches);
+    const repeatedStitches = [];
+    const repeatCount = Math.ceil(8 / selectedStitches.length); // Calculate how many times to repeat the sequence
+    for (let i = 0; i < repeatCount; i++) {
+      repeatedStitches.push(...selectedStitches);
+    }
+    const finalStitches = repeatedStitches.slice(0, 8); // Ensure the final sequence has exactly 8 stitches
+    handleSubmit(finalStitches);
     console.log("handled submit");
     setGettingSequence(false);
     setSelectedStitches([]);
@@ -60,28 +68,21 @@ const Stitchbar = ({ stitches, onSelect, onGenerateRound, handleSubmit, generate
         <Button onClick={() => console.log("undo button clicked")}>Undo</Button>
         <Button onClick={() => console.log("redo button clicked")}>Redo</Button>
         <Button onClick={handleClearSelection}>Clear selection</Button>
+      </div>
+
+      <section className="getting-sequence">
+        <div className="selection">
+          {selectedStitches.map((stitch) => (
+            <div key={generateRandomKey()}>
+              <img src={stitch.image} alt={stitch.name} style={{ height: "50px", width: "50px" }} />
+            </div>
+          ))}
+        </div>
 
         {!gettingSequence && <Button onClick={handleNewRound}>Add Round</Button>}
+        {gettingSequence && <Button onClick={handleGenerateRound}>Generate Round</Button>}
+      </section>
 
-        {gettingSequence && (
-          <table>
-            <tbody>
-              <tr>
-                {selectedStitches.map((stitch) => (
-                  <td key={generateRandomKey()}>
-                    <img src={stitch.image} alt={stitch.name} style={{ height: "50px", width: "50px" }} />
-                  </td>
-                ))}
-              </tr>
-              <tr>
-                <td>
-                  <Button onClick={handleGenerateRound}>Generate Round</Button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        )}
-      </div>
       <div className="stitch-buttons">
         {stitches.map((stitch) => (
           <Button key={generateRandomKey()} onClick={() => handleSelect(stitch)}>
