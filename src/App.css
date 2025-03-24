@@ -10,7 +10,9 @@ header {
 }
 
 main {
+  width: 100vw;
   display: flex;
+  justify-content: space-between;
   height: 90vh;
 }
 
@@ -21,15 +23,18 @@ main {
 }
 
 .Chart {
-  flex: 5;
+  flex: 4;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* .Toolbar {
+.TextDisplay {
   flex: 1;
-} */
+  max-width: 20vw; /* Adjust the width as needed */
+  min-width: 20vw;
+  /* height: 100%; */
+}
 
 .getStartingSts {
   display: flex;

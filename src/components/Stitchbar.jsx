@@ -25,6 +25,7 @@ const Stitchbar = ({ stitches, onSelect, onGenerateRound, handleSubmit, generate
       } catch (error) {
         console.error("Error:", error);
       }
+      location.reload();
     }
   };
 
@@ -44,18 +45,11 @@ const Stitchbar = ({ stitches, onSelect, onGenerateRound, handleSubmit, generate
 
   const handleGenerateRound = () => {
     console.log("generate round button clicked");
-    const repeatedStitches = [];
-    const repeatCount = Math.ceil(8 / selectedStitches.length); // Calculate how many times to repeat the sequence
-    for (let i = 0; i < repeatCount; i++) {
-      repeatedStitches.push(...selectedStitches);
-    }
-    const finalStitches = repeatedStitches.slice(0, 8); // Ensure the final sequence has exactly 8 stitches
-    handleSubmit(finalStitches);
+    handleSubmit(selectedStitches);
     console.log("handled submit");
     setGettingSequence(false);
     setSelectedStitches([]);
   };
-
   const handleClearSelection = () => {
     console.log("clear selection button clicked");
     setSelectedStitches([]);

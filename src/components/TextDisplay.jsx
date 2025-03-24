@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "../css/Chart.css";
-import Round from "./Round";
+import "../css/TextDisplay.css";
 
-const Chart = ({ stitches, updateChart, rounds, setRounds, generateRandomKey }) => {
-  const startingStitches = stitches;
+const TextDisplay = ({ stitches, updateChart, rounds, setRounds, generateRandomKey }) => {
   useEffect(() => {
     fetchChartData();
   }, [updateChart]); // Fetch data whenever updateChart changes
@@ -19,14 +17,15 @@ const Chart = ({ stitches, updateChart, rounds, setRounds, generateRandomKey }) 
       console.error("Error fetching chart data:", error);
     }
   };
-
   return (
-    <div className="chart">
+    <div className="text">
       {rounds.map((round, idx) => (
-        <Round key={generateRandomKey()} round={round} roundIndex={idx} generateRandomKey={generateRandomKey} />
+        <div key={generateRandomKey()} className="round-text">
+          <b>Round {idx + 1}: </b> {round.stitches.map((stitch) => stitch.id).join(", ")}
+        </div>
       ))}
     </div>
   );
 };
 
-export default Chart;
+export default TextDisplay;
