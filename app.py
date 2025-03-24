@@ -1,14 +1,19 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS 
 import json
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='dist', static_url_path='')
 CORS(app)
 
 # Initialize chart_data as a list
 chart_data = []
 # and rounds, so that we can count indices more easily
 chart_indices = 0; 
+
+@app.route('/')
+@app.route('/<path:path>')
+def serve(path='index.html'):
+    return send_from_directory(app.static_folder, path)
 
 def add_chart_data(data):
     global chart_indices
