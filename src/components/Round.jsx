@@ -21,6 +21,11 @@ const arrangeInCircle = (elements, radius) => {
   });
 };
 
+function clickedStitch(stitch) {
+  console.log(stitch);
+  return stitch;
+}
+
 const Round = ({ round, roundIndex, generateRandomKey }) => {
   const roundRef = useRef(null);
 
@@ -44,7 +49,12 @@ const Round = ({ round, roundIndex, generateRandomKey }) => {
       {round.stitches.map((stitch) => (
         <div key={generateRandomKey()} className="stitch">
           <Stitch />
-          <img src={stitch.image} alt={stitch.name} style={{ height: "50px", width: "50px" }} />
+          <img
+            onClick={() => clickedStitch(stitch)}
+            src={stitch.image}
+            alt={stitch.name}
+            style={{ height: "50px", width: "50px" }}
+          />
         </div>
       ))}
     </div>

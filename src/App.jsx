@@ -3,6 +3,7 @@ import Header from "./components/Header.jsx";
 import Stitchbar from "./components/Stitchbar.jsx";
 import Chart from "./components/Chart.jsx";
 import TextDisplay from "./components/TextDisplay.jsx";
+import Popup from "./components/Popup.jsx";
 import { COLORS } from "./colors.jsx";
 import "./App.css";
 
@@ -119,6 +120,8 @@ export default function App() {
 
         {!submitted ? (
           <section className="Setup">
+            <Popup stitches={initialStitches} generateRandomKey={generateRandomKey} />
+            {/* //TEMPORARYYYY */}
             <div className="Instructions">
               <h2>Instructions r here </h2>
             </div>
